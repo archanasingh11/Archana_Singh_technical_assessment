@@ -1,0 +1,27 @@
+// transformNode.js
+
+import { useState } from 'react';
+import { Position } from 'reactflow';
+import { BaseNode } from './BaseNode';
+
+export const TransformNode = ({ id, data }) => {
+  const [transformType, setTransformType] = useState(data.transformType || 'Uppercase');
+  
+  const handles = [
+    { type: 'target', position: Position.Left, id: `${id}-input` },
+    { type: 'source', position: Position.Right, id: `${id}-output` },
+  ];
+
+  return (
+    <BaseNode id={id} data={data} title="Transform" handles={handles}>
+      <label>
+        Type:
+        <select value={transformType} onChange={(e) => setTransformType(e.target.value)}>
+          <option value="Uppercase">Uppercase</option>
+          <option value="Lowercase">Lowercase</option>
+          <option value="Trim">Trim</option>
+        </select>
+      </label>
+    </BaseNode>
+  );
+};
